@@ -38,6 +38,10 @@ public class RubyController : MonoBehaviour
         currentHealth = maxHealth;
 
         audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            Debug.LogError("AudioSource component not found!");
+        }
     }
 
     // Update is called once per frame
@@ -125,6 +129,12 @@ public class RubyController : MonoBehaviour
 
     public void PlaySound(AudioClip clip)
     {
+        if (clip == null)
+        {
+             Debug.LogWarning("Attempting to play a null audio clip.");
+            return;
+        }
+
         audioSource.PlayOneShot(clip);
     }
 }
