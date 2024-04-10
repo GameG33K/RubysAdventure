@@ -8,6 +8,8 @@ public class EnemyController2 : MonoBehaviour
     public bool vertical;
     public float changeTime = 3.0f;
 
+    private RubyController rubyController;
+
     public ParticleSystem smokeEffect;
 
     Rigidbody2D rigidbody2D;
@@ -23,6 +25,16 @@ public class EnemyController2 : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
         timer = changeTime;
         animator = GetComponent<Animator>();
+
+        GameObject rubyGameObject = GameObject.FindWithTag("Player");
+        if (rubyGameObject != null)
+        {
+            rubyController = rubyGameObject.GetComponent<RubyController>();
+        }
+        else
+        {
+            Debug.LogError("Ruby GameObject not found!");
+        }
     }
 
     void Update()
@@ -86,6 +98,12 @@ public class EnemyController2 : MonoBehaviour
         //optional if you added the fixed animation
         animator.SetTrigger("Fixed");
 
-        smokeEffect.Stop();
+        smokeEffect.Stop(true);
+        //DestroyImmediate(smokeEffect.gameObject,true);
+
+        if (rubyController != null)
+        {
+            rubyController.ChangeScore(1);
+        }
     }
 }

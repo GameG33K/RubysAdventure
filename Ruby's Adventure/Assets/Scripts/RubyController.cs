@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class RubyController : MonoBehaviour
 {
@@ -9,6 +11,16 @@ public class RubyController : MonoBehaviour
     public int maxHealth = 5;
 
     public GameObject projectilePrefab;
+
+    public GameObject healthIncreaseParticlePrefab;
+    public GameObject healthDecreaseParticlePrefab;
+
+    bool gameOver = false;
+
+    public int fixedRobots = 0;
+    public Text scoreText; // Declare scoreText variable
+
+    public GameObject gameOverText;
 
     public AudioClip throwSound;
     public AudioClip hitSound;
@@ -42,6 +54,7 @@ public class RubyController : MonoBehaviour
         {
             Debug.LogError("AudioSource component not found!");
         }
+        UpdateScoreText();
     }
 
     // Update is called once per frame
@@ -86,6 +99,32 @@ public class RubyController : MonoBehaviour
                 }
             }
         }
+
+        if (currentHealth == 0)
+        {
+            speed = 0;
+            gameOverText.GetComponent<Text>().text = ("You lost! Press R to Restart!");
+            gameOver = true;
+
+        }
+
+        if (fixedRobots == 4)
+        {
+            speed = 0;
+            gameOverText.GetComponent<Text>().text = ("You Win! Game Created by: Group 24. Press R to Restart!");
+            gameOver = true;
+
+        }
+
+        if (Input.GetKey(KeyCode.R))
+        {
+            if (gameOver == true)
+            {
+
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // this loads the currently active scene
+
+            }
+        }
     }
 
     void FixedUpdate()
@@ -106,8 +145,15 @@ public class RubyController : MonoBehaviour
 
             isInvincible = true;
             invincibleTimer = timeInvincible;
+            
+            Instantiate(healthDecreaseParticlePrefab, transform.position, Quaternion.identity);
 
             PlaySound(hitSound);
+        }
+
+        if (amount > 0)
+        {
+            Instantiate(healthIncreaseParticlePrefab, transform.position, Quaternion.identity);
         }
 
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
@@ -136,5 +182,16 @@ public class RubyController : MonoBehaviour
         }
 
         audioSource.PlayOneShot(clip);
+    }
+
+    public void ChangeScore(int amount)
+    {
+        fixedRobots += amount;
+        UpdateScoreText();
+    }
+
+    void UpdateScoreText()
+    {
+        scoreText.text = "Fixed Robots: " + fixedRobots.ToString();
     }
 }
