@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class CatHappinessManager2 : MonoBehaviour
 {
-    public float happiness = 20.0f;
+    public float happiness = 40.0f;
     public float decreaseRate = 1.0f;
 
     private RubyController gameController;
@@ -33,7 +33,7 @@ public class CatHappinessManager2 : MonoBehaviour
     // Method to reset happiness when the player interacts with the cat
     public void ResetHappiness()
     {
-        happiness = 20.0f;
+        happiness = 40.0f;
     }
 }
 

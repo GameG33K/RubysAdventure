@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //Created by Kole
 
@@ -10,7 +11,7 @@ public class UIManager : MonoBehaviour
     public Slider cat2HappinessBar;
 
     public CatHappinessManager cat1Manager;
-    public CatHappinessManager cat2Manager;
+    public CatHappinessManager2 cat2Manager;
 
     void Update()
     {

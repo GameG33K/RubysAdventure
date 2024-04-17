@@ -21,6 +21,11 @@ public class CatMeows : MonoBehaviour
             {
                 happinessManager.ResetHappiness();
             }
+            CatHappinessManager2 happinessManager2 = GetComponent<CatHappinessManager2>();
+            if (happinessManager2 != null)
+            {
+                happinessManager2.ResetHappiness();
+            }
         }
 
     }
