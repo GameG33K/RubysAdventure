@@ -103,7 +103,7 @@ public class RubyController : MonoBehaviour
         if (currentHealth == 0)
         {
             speed = 0;
-            gameOverText.GetComponent<Text>().text = ("You lost! Press R to Restart!");
+            gameOverText.GetComponent<Text>().text = ("You Fainted! Press R to Restart!");
             gameOver = true;
 
         }
@@ -113,7 +113,6 @@ public class RubyController : MonoBehaviour
             speed = 0;
             gameOverText.GetComponent<Text>().text = ("You Win! Game Created by: Group 24. Press R to Restart!");
             gameOver = true;
-
         }
 
         if (Input.GetKey(KeyCode.R))
@@ -125,6 +124,7 @@ public class RubyController : MonoBehaviour
 
             }
         }
+
     }
 
     void FixedUpdate()
@@ -161,6 +161,12 @@ public class RubyController : MonoBehaviour
         UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
     }
 
+    //Function created by Francisco
+    public void ChangeSpeed(float amount)
+    {
+        speed = speed + amount;
+    }
+
     void Launch()
     {
         GameObject projectileObject = Instantiate(projectilePrefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
@@ -193,5 +199,13 @@ public class RubyController : MonoBehaviour
     void UpdateScoreText()
     {
         scoreText.text = "Fixed Robots: " + fixedRobots.ToString();
+    }
+
+    //This function was created by Kole
+    public void GameOver()
+    {
+        speed = 0;
+        gameOverText.GetComponent<Text>().text = "Game Over! Cat too sad! Press R to Restart!";
+        gameOver = true;
     }
 }
